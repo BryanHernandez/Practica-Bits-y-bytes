@@ -1,0 +1,100 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Threading; //Se utiliza para el funcionamiento de progressBar
+
+namespace Bits_y_Bytes
+{
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        private void btnProcesar_Click(object sender, EventArgs e)
+        {
+
+            byte sensor1;
+            byte sensor2;
+            byte nivel;
+            byte direccion;
+
+
+            int numero;
+            numero = Convert.ToInt32(textBox1.Text);
+
+            sensor1 = Convert.ToByte(numero >> 7 & 1);
+            sensor2 = Convert.ToByte(numero >> 6 & 1);
+            nivel = Convert.ToByte(numero >> 4 & 3);
+            direccion = Convert.ToByte(numero >> 1 & 7);
+            
+            Direcciones(direccion);
+            Niveles(nivel);
+            Sensor1(sensor1);
+            Sensor2(sensor2);
+
+        }
+
+        void Sensor1(byte numero)
+        {
+            if (numero == 1)
+            {
+                rbS1.Checked = true;
+            }
+            else
+                rbS2.Checked = false;
+        }
+
+        void Sensor2(byte numero)
+        {
+            if (numero == 1)
+            {
+                rbS1.Checked = true;
+            }
+            else
+                rbS2.Checked = false;
+        }
+
+        void Niveles(byte numero)
+        {
+            if (numero == 0)
+                progressBar1.Value = 0;
+            else if (numero == 1)
+                progressBar1.Value = 50;
+            else if (numero == 2)
+                progressBar1.Value = 100;
+            else if (numero == 3)
+            {
+                for (int i = 0; i <= 100; i++)
+                {
+                    progressBar1.Value = i;
+                    Thread.Sleep(100);
+
+                }
+            }
+
+        }
+
+        void Direcciones(byte numero)
+        {
+            switch (numero)
+            {
+                case 0: txtCoordenada.Text = txtCoordenada.Text = "N";  break;
+                case 1: txtCoordenada.Text = txtCoordenada.Text = "NE"; break;
+                case 2: txtCoordenada.Text = txtCoordenada.Text = "E";  break;
+                case 3: txtCoordenada.Text = txtCoordenada.Text = "SE"; break;
+                case 4: txtCoordenada.Text = txtCoordenada.Text = "S";  break;
+                case 5: txtCoordenada.Text = txtCoordenada.Text = "SO"; break;
+                case 6: txtCoordenada.Text = txtCoordenada.Text = "O";  break;
+                case 7: txtCoordenada.Text = txtCoordenada.Text = "NO"; break;
+            }
+
+        }
+    }
