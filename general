@@ -27,6 +27,7 @@ namespace Bits_y_Bytes
             byte direccion;
 
 
+
             int numero;
             numero = Convert.ToInt32(textBox1.Text);
 
@@ -34,7 +35,10 @@ namespace Bits_y_Bytes
             sensor2 = Convert.ToByte(numero >> 6 & 1);
             nivel = Convert.ToByte(numero >> 4 & 3);
             direccion = Convert.ToByte(numero >> 1 & 7);
-            
+
+
+
+
             Direcciones(direccion);
             Niveles(nivel);
             Sensor1(sensor1);
@@ -65,16 +69,16 @@ namespace Bits_y_Bytes
         void Niveles(byte numero)
         {
             if (numero == 0)
-                progressBar1.Value = 0;
+                progressB1.Value = 0;
             else if (numero == 1)
-                progressBar1.Value = 50;
+                progressB1.Value = 50;
             else if (numero == 2)
-                progressBar1.Value = 100;
+                progressB1.Value = 100;
             else if (numero == 3)
             {
                 for (int i = 0; i <= 100; i++)
                 {
-                    progressBar1.Value = i;
+                    progressB1.Value = i;
                     Thread.Sleep(100);
 
                 }
@@ -86,15 +90,27 @@ namespace Bits_y_Bytes
         {
             switch (numero)
             {
-                case 0: txtCoordenada.Text = txtCoordenada.Text = "N";  break;
+                case 0: txtCoordenada.Text = txtCoordenada.Text = "N"; break;
                 case 1: txtCoordenada.Text = txtCoordenada.Text = "NE"; break;
-                case 2: txtCoordenada.Text = txtCoordenada.Text = "E";  break;
+                case 2: txtCoordenada.Text = txtCoordenada.Text = "E"; break;
                 case 3: txtCoordenada.Text = txtCoordenada.Text = "SE"; break;
-                case 4: txtCoordenada.Text = txtCoordenada.Text = "S";  break;
+                case 4: txtCoordenada.Text = txtCoordenada.Text = "S"; break;
                 case 5: txtCoordenada.Text = txtCoordenada.Text = "SO"; break;
-                case 6: txtCoordenada.Text = txtCoordenada.Text = "O";  break;
+                case 6: txtCoordenada.Text = txtCoordenada.Text = "O"; break;
                 case 7: txtCoordenada.Text = txtCoordenada.Text = "NO"; break;
             }
 
         }
+   
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+            UInt32 day = Convert.ToUInt16(dateTimePicker1.Value.Day);
+            UInt32 month = Convert.ToUInt16(dateTimePicker1.Value.Month << 5);
+            UInt32 year = Convert.ToUInt32(dateTimePicker1.Value.Year << 9);
+            
+            txtResultado.Text = Convert.ToString(day + (month << 5) + (year << 9));
+        }
     }
+}
+   
